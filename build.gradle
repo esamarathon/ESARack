@@ -14,7 +14,7 @@ apply plugin: 'eclipse'
 
 //Make this project as a Gradle project
 eclipse.project {
-  	natures 'org.springsource.ide.eclipse.gradle.core.nature'
+  	natures 'org.eclipse.buildship.core.gradleprojectnature'
 }
 
 // In this section you declare where to find the dependencies of your project
