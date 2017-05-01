@@ -1,6 +1,6 @@
 package com.esamarathon.ESARack.hardware;
 
-public class Crosspoint implements PresetSwitch {
+public class Crosspoint extends Extron implements PresetSwitch {
 
 	@Override
 	public void setPreset(int preset) {
