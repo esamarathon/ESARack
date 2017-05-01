@@ -14,6 +14,8 @@ public class Crosspoint extends Extron implements PresetSwitch {
 		return 0;
 	}
 	
+	
+	
 	// Some nice API to rewire the crosspoint and save presets.
 	// This will take some considerations.
 	
