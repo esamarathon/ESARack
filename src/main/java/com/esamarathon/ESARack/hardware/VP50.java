@@ -136,4 +136,17 @@ public class VP50 implements PowerSwitch, PresetSwitch, InputSwitch {
 	private short ASCIIEncode(byte length) {
 		return (short) (0x30 + (length % 10) + 0x3000 + (length/10 %10)*10);
 	}
+	
+	private byte ASCIIDecode(short value) {
+		return (byte) (((value >> 8) - 0x30)*10 + ((value & 0xff) -0x30));
+	}
+	
+	protected byte[] readResponse() throws SerialPortException {
+		byte[] answer = port.readBytes(5);
+		byte size = ASCIIDecode( (short) (((short) answer[3])<<8 + answer[4]) );
+		// Take first five bytes. Includes type and packet size. Use size to read rest of response.
+		ByteBuffer buf = ByteBuffer.allocate(size);
+		return buf.array();
+		
+	}
 }
