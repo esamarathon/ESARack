@@ -1,5 +1,7 @@
 package com.esamarathon.ESARack.web;
 
+import java.util.logging.Logger;
+
 import com.esamarathon.ESARack.hardware.Crosspoint;
 import com.esamarathon.ESARack.web.models.CrosspointModel;
 import com.esamarathon.ESARack.web.models.VP50Model;
@@ -44,6 +46,7 @@ public class CrosspointHandler implements Handler {
 		@Override
 		public Object handle(Request request, Response response) throws Exception {
 			CrosspointModel model = new Gson().fromJson(request.body(), CrosspointModel.class);	
+			Logger.getLogger("CrosspointHandler").info(model.toString());
 			if (model.resetTies == true) {
 				crosspoint.clearAllTies();
 			}

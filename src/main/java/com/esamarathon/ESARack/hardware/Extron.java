@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 public class Extron {
 
-	private Logger logger;
+	protected Logger logger;
 	protected String ip;
 	protected int port;
 
@@ -32,7 +32,7 @@ public class Extron {
 		// Get copywright message
 		char cbufCWMessage[] = new char[5000];
 		in.read(cbufCWMessage);
-		logger.info(String.valueOf(cbufCWMessage));
+		logger.fine(String.valueOf(cbufCWMessage));
 		// Sleep to allow for Extron unit to catch up
 		Thread.sleep(25);
 

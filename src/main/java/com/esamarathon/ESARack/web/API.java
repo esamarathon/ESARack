@@ -1,14 +1,19 @@
 package com.esamarathon.ESARack.web;
 
 import static spark.Spark.*;
+
+import java.util.logging.Logger;
+
 import static com.esamarathon.ESARack.web.util.JsonUtil.json;
 
+import com.esamarathon.ESARack.Main;
 import com.esamarathon.ESARack.hardware.*;
 
 public class API {
 
 	public API(VP50 vp50, OSSC ossc, Crosspoint crosspoint, IN1606 in1606) {
 		port(8080);
+		Logger.getLogger(API.class.getCanonicalName()).info("Starting server on port " + 8080);
 		
 		Handler vp50Handler = new VP50Handler(vp50);
 		Handler osscHandler = new OSSCHandler(ossc);

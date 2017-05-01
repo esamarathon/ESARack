@@ -2,6 +2,7 @@ package com.esamarathon.ESARack.hardware;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Logger;
 
 import com.esamarathon.ESARack.hardware.enums.CrosspointBindingType;
 import com.esamarathon.ESARack.web.models.CrosspointTieModel;
@@ -17,6 +18,12 @@ public class Crosspoint extends Extron implements PresetSwitch {
 	 * Extron Crosspoint command to recall preset is int(dot)
 	 */	
 	
+	public Crosspoint(String addr, int port) {
+		logger = Logger.getLogger("Crosspoint");
+		this.ip = addr;
+		this.port = port;
+	}
+
 	@Override
 	public void setPreset(int preset) throws IOException, InterruptedException {
 		String sPreset = Integer.toString(preset);
@@ -39,7 +46,9 @@ public class Crosspoint extends Extron implements PresetSwitch {
 	 */
 
 	public void clearAllTies() throws IOException, InterruptedException {
+		logger.info("Clearing all ties.");
 		this.ConnectAndSendCommandToExtronUnit(this.ip, this.port, "0*!");
+		logger.fine("Cleared all ties.");
 		
 	}
 
@@ -54,7 +63,8 @@ public class Crosspoint extends Extron implements PresetSwitch {
 			out = model.getOutput();
 			bindingType = model.getType();
 			
-			command = in + "*" + out + bindingType;
+			command = in + "*" + out + bindingType.GetCrosspointBindingType();
+			logger.info("Extron Command: " + command);
 			
 			this.ConnectAndSendCommandToExtronUnit(this.ip, this.port, command);		
 		}
