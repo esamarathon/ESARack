@@ -44,8 +44,15 @@ public class CrosspointHandler implements Handler {
 		@Override
 		public Object handle(Request request, Response response) throws Exception {
 			CrosspointModel model = new Gson().fromJson(request.body(), CrosspointModel.class);	
-			if (model.preset != null)
-				crosspoint.setPreset(model.preset);
+			if (model.resetTies == true) {
+				crosspoint.clearAllTies();
+			}
+			if (model.tieModel != null) {
+				crosspoint.setTies(model.tieModel);
+			}
+			if (model.preset != null) {
+				crosspoint.setPreset(model.preset);				
+			}
 			return true;
 		}
 	}
