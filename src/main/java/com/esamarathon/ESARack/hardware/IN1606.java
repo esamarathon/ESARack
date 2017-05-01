@@ -5,7 +5,7 @@ package com.esamarathon.ESARack.hardware;
  * @author zephyyrr
  *
  */
-public class IN1606 implements InputSwitch {
+public class IN1606 extends Extron implements InputSwitch {
 
 	@Override
 	public String getInput() {
