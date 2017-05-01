@@ -1,6 +1,8 @@
 package com.esamarathon.ESARack.web;
 
 import com.esamarathon.ESARack.hardware.IN1606;
+import com.esamarathon.ESARack.web.models.IN1606Model;
+import com.google.gson.Gson;
 
 import spark.Request;
 import spark.Response;
@@ -28,8 +30,9 @@ public class IN1606Handler implements Handler {
 
 		@Override
 		public Object handle(Request request, Response response) throws Exception {
-			// TODO Auto-generated method stub
-			return null;
+			IN1606Model model = new IN1606Model();
+			model.input = in1606.getInput();
+			return model;
 		}
 
 	}
@@ -38,8 +41,11 @@ public class IN1606Handler implements Handler {
 
 		@Override
 		public Object handle(Request request, Response response) throws Exception {
-			// TODO Auto-generated method stub
-			return null;
+			IN1606Model model = new Gson().fromJson(request.body(), IN1606Model.class);
+			if (model.input != null)
+				in1606.setInput(model.input);
+	
+			return true;
 		}
 
 	}

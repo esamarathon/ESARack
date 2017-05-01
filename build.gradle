@@ -7,10 +7,32 @@
  * user guide available at https://docs.gradle.org/2.14.1/userguide/tutorial_java_projects.html
  */
 
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.4'
+    }
+}
+
+apply plugin: 'com.github.johnrengelman.shadow'
+
 // Apply the java plugin to add support for Java
 apply plugin: 'java'
 
 apply plugin: 'eclipse'
+
+
+sourceCompatibility = 1.8
+version = '1.0'
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'ESARack',
+                   'Implementation-Version': version,
+                   'Main-Class': 'com.esamarathon.ESARack.Main'
+    }
+}
 
 //Make this project as a Gradle project
 eclipse.project {

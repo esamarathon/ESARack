@@ -19,6 +19,7 @@ public class API {
 		get("/api/ossc", "text/json", osscHandler.Get(), json());
 		get("/api/crosspoint", "text/json", crosspointHandler.Get(), json());
 		get("/api/in1606", "text/json", in1606Handler.Get(), json());
+		
 		post("/api/vp50", "text/json", vp50Handler.Post(), json());
 		post("/api/ossc", "text/json", osscHandler.Post(), json());
 		post("/api/crosspoint", "text/json", crosspointHandler.Post(), json());

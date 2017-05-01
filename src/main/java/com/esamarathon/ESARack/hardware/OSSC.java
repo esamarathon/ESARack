@@ -7,6 +7,10 @@ public class OSSC implements InputSwitch, PowerSwitch {
 	private String input;
 	private boolean interlacePassthrough;
 	private boolean lineTripple;
+	
+	public OSSC() {
+		input = "AV1";
+	}
 
 	@Override
 	public void turnOn() {

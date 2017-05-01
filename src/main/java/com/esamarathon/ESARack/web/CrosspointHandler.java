@@ -1,6 +1,9 @@
 package com.esamarathon.ESARack.web;
 
 import com.esamarathon.ESARack.hardware.Crosspoint;
+import com.esamarathon.ESARack.web.models.CrosspointModel;
+import com.esamarathon.ESARack.web.models.VP50Model;
+import com.google.gson.Gson;
 
 import spark.Request;
 import spark.Response;
@@ -28,8 +31,9 @@ public class CrosspointHandler implements Handler {
 
 		@Override
 		public Object handle(Request request, Response response) throws Exception {
-			// TODO Auto-generated method stub
-			return null;
+			CrosspointModel model = new CrosspointModel();
+			model.preset = crosspoint.getPreset();
+			return model;
 		}
 
 	}
@@ -39,8 +43,10 @@ public class CrosspointHandler implements Handler {
 
 		@Override
 		public Object handle(Request request, Response response) throws Exception {
-			// TODO Auto-generated method stub
-			return null;
+			CrosspointModel model = new Gson().fromJson(request.body(), CrosspointModel.class);	
+			if (model.preset != null)
+				crosspoint.setPreset(model.preset);
+			return true;
 		}
 	}
 

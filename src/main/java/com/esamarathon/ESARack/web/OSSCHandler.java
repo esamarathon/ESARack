@@ -18,13 +18,24 @@ public class OSSCHandler implements Handler {
 
 	@Override
 	public Route Get() {
-		// TODO Auto-generated method stub
-		return null;
+		return new GetRoute();
 	}
 
 	@Override
 	public Route Post() {
 		return new PostRoute();
+	}
+	
+	private class GetRoute implements Route {
+
+		@Override
+		public Object handle(Request request, Response response) throws Exception {
+			OSSCModel model = new OSSCModel();
+			model.input = ossc.getInput();
+			model.interlacePassthrough = ossc.getInterlacePassThrough();
+			model.lineTripple = ossc.getLineTripple();
+			return model;
+		}
 	}
 	
 	private class PostRoute implements Route {
