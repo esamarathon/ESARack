@@ -12,8 +12,13 @@ public class Extron {
 	protected Logger logger;
 	protected String ip;
 	protected int port;
+	
+	
+	public String ConnectAndSendCommand(String command) throws IOException, InterruptedException {
+		return ConnectAndSendCommandToExtronUnit(this.ip, this.port, command);
+	}
 
-	public boolean ConnectAndSendCommandToExtronUnit(String IP, int port, String command)
+	public String ConnectAndSendCommandToExtronUnit(String IP, int port, String command)
 			throws IOException, InterruptedException {
 		Socket pingSocket = null;
 		PrintWriter out = null;
@@ -26,7 +31,7 @@ public class Extron {
 
 		} catch (IOException e) {
 			logger.severe("Extron failed to connect.");
-			return false;			
+			return null;			
 		}
 
 		// Get copywright message
@@ -50,7 +55,7 @@ public class Extron {
 		in.close();
 		pingSocket.close();
 		
-		return true;
+		return new String(cbufResponse).trim();
 
 	}
 
