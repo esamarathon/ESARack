@@ -13,10 +13,11 @@ public class Main {
 		Logger.getLogger(Main.class.getCanonicalName()).info("Starting server...");
 		VP50 vp50 = new VP50(new SerialPort("/dev/ttyUSB0"));
 		OSSC ossc = new OSSC();
-		Crosspoint crosspoint = new Crosspoint("192.168.254.254", 23);
-		IN1606 in1606 = new IN1606();
 		
-		API api = new API(vp50, ossc, crosspoint, in1606);
+		Crosspoint crosspoint = new Crosspoint("192.168.254.254", 23);
+		IN1606 in1606 = new IN1606("192.168.254.253", 23);
+		
+		new API(vp50, ossc, crosspoint, in1606);
 	}
 
 }

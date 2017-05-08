@@ -10,7 +10,7 @@ import java.util.logging.Logger;
  */
 public class IN1606 extends Extron implements InputSwitch {
 	
-	char ESC = 0x1b;
+	public static final char ESC = 0x1b;
 	
 	public IN1606(String addr, int port) {
 		logger = Logger.getLogger("IN1606");
@@ -54,7 +54,7 @@ public class IN1606 extends Extron implements InputSwitch {
 		height = Math.min(height, 4096);
 		height = Math.max(height, 10);
 		String sHeight = Integer.toString(height);
-		ConnectAndSendCommand(ESC + sHeight + "HSIZ\r");
+		ConnectAndSendCommand(ESC + sHeight + "VSIZ\r");
 	}
 	
 	public int getHorizontalShift() throws IOException, InterruptedException {
