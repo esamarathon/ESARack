@@ -5,6 +5,7 @@ import com.esamarathon.ESARack.web.util.JsonUtil;
 public class OSSCModel {
 	public Boolean power;
 	public String input;
+	public Integer preset;
 	public Boolean interlacePassthrough;
 	public Integer lineMultiplier;
 	

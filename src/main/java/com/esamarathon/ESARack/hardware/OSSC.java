@@ -1,46 +1,76 @@
 package com.esamarathon.ESARack.hardware;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
-public class OSSC implements InputSwitch, PowerSwitch {
+import com.esamarathon.ESARack.hardware.enums.OSSCCommand;
+import static com.esamarathon.ESARack.hardware.enums.OSSCCommand.*;
+import com.esamarathon.ESARack.hardware.enums.OSSCInput;
+
+public class OSSC implements PresetSwitch {
 	
-	private String input;
+	private Logger logger;
+	private OSSCInput input;
 	private boolean interlacePassthrough;
 	private boolean lineTripple;
+	private int preset;
 	
 	public OSSC() {
-		input = "AV1";
+		logger = Logger.getLogger("OSSC");
+		input = OSSCInput.AV1_RGBS;
 	}
 
-	@Override
-	public void turnOn() {
-		callCommand(buildCommand("irsend PowerOn"));
+	public void togglePower() {
+		callCommand(buildCommand(POWER));
 
 	}
 
-	@Override
-	public void turnOff() {
-		callCommand(buildCommand("irsend PowerOff"));
-	}
-
-	@Override
-	public String getInput() {
+	public OSSCInput getInput() {
 		return input;
 	}
 
-	@Override
-	public void setInput(String input) {
+	public void setInput(OSSCInput input) {
 		this.input = input;
-		callCommand(buildCommand("Input1"));
+		callCommand(buildCommand(input.getCommand()));
 	}
 	
+	@Override
+	public int getPreset() throws Exception {
+		return preset;
+	}
+	
+	@Override
+	public void setPreset(int preset) {
+		callCommand(buildCommand(PRESET));
+		callCommand(buildCommandRaw("KEY_"+preset));
+		this.preset = preset;
+		this.interlacePassthrough = true;
+		
+		switch (preset) {
+		case 0: this.lineTripple = true; break;
+		case 1: this.lineTripple = false; break;
+		}
+	}
+
 	public boolean getInterlacePassThrough() {
 		return interlacePassthrough;
 	}
 	
 	public void setInterlacePassThrough(boolean active) {
-		this.interlacePassthrough = active;
-		callCommand(buildCommand("InterlacePassThrough" + (active? "On" : "Off")));
+		if (this.interlacePassthrough != active) {
+			callCommand(buildCommand(MENU));
+			callCommand(buildCommand(DOWN));
+			callCommand(buildCommand(DOWN));
+			if (this.interlacePassthrough) {
+				callCommand(buildCommand(RIGHT));
+			} else {
+				callCommand(buildCommand(LEFT));
+			}
+			callCommand(buildCommand(UP));
+			callCommand(buildCommand(UP));
+			callCommand(buildCommand(MENU));
+			this.interlacePassthrough = active;
+		}
 	}
 	
 	public boolean getLineTripple() {
@@ -48,18 +78,33 @@ public class OSSC implements InputSwitch, PowerSwitch {
 	}
 	
 	public void setLineTripple(boolean active) {
-		this.lineTripple = active;
-		callCommand(buildCommand("LineTripple" + (active? "On" : "Off")));
+		if (active != this.lineTripple) {
+			callCommand(buildCommand(MENU));
+			if (active) {
+				callCommand(buildCommand(RIGHT));
+			} else {
+				callCommand(buildCommand(LEFT));
+			}
+			callCommand(buildCommand(MENU));
+			this.lineTripple = active;
+		}
 	}
 	
-	protected String buildCommand(String parameters) {
-		return String.format("echo %s", parameters);
+	private String buildCommandRaw(String cmd) {
+		return String.format("irsend send_once OSSC %s", cmd);
+	}
+	
+	protected String buildCommand(OSSCCommand cmd) {
+		return buildCommandRaw(cmd.getCommand());
 	}
 	
 	private void callCommand(String cmd) {
 		try {
 			Runtime.getRuntime().exec(cmd);
+			Thread.sleep(50);
 		} catch (IOException e) {
+			logger.severe(e.getMessage());
+		} catch (InterruptedException e) {
 			
 		}
 	}

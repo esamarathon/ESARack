@@ -37,6 +37,7 @@ public class OSSCHandler extends AbstractHandler {
 		public Object handle(Request request, Response response) throws Exception {
 			OSSCModel model = new OSSCModel();
 			model.input = ossc.getInput().toString().toLowerCase();
+			model.preset = ossc.getPreset();
 			model.interlacePassthrough = ossc.getInterlacePassThrough();
 			model.lineMultiplier = ossc.getLineTripple() ? 3 : 2;
 			return model;
@@ -60,6 +61,11 @@ public class OSSCHandler extends AbstractHandler {
 			if (model.input != null) {
 				logger.log(Level.INFO, "Changing to input " + model.input + ".");
 				ossc.setInput(OSSCInput.fromString(model.input));
+			}
+			
+			if (model.preset != null) {
+				logger.log(Level.INFO,  "Changing to preset " + model.preset + ".");
+				ossc.setPreset(model.preset);
 			}
 			
 			if (model.interlacePassthrough != null) {
