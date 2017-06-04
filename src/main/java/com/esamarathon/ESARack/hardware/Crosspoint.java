@@ -35,8 +35,7 @@ public class Crosspoint extends Extron implements PresetSwitch {
 	}
 
 	@Override
-	public int getPreset() {
-		
+	public int getPreset() {	
 		return this.preset;
 	}
 	

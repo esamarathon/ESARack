@@ -40,7 +40,7 @@ public class Extron {
 
 		// Send command to Extron Unit and wait 100 ms for the unit to react
 		// with a response
-		out.print(command);
+		out.println(command);
 		Thread.sleep(100);
 
 		// Read response and return it
@@ -53,7 +53,29 @@ public class Extron {
 		socket.close();
 		
 		return new String(cbufResponse).trim();
-
+	}
+	
+	public boolean testConnection() {
+		Socket socket = null;
+		PrintWriter out = null;
+		BufferedReader in = null;
+		
+		try {
+			socket = createSocket();//new Socket(IP, port);
+			out = new PrintWriter(socket.getOutputStream(), true);
+			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			readCopyrightMessage(in);
+			in.close();
+			out.close();
+			socket.close();
+		} catch (IOException e) {
+			logger.severe("Extron failed to connect.");
+			return false;			
+		} catch (InterruptedException e) {
+			return false;
+		}
+		
+		return true;
 	}
 	
 	// Reads the copyright message sent from Extron unit and discards it.

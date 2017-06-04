@@ -14,8 +14,11 @@ public class Main {
 		VP50 vp50 = new VP50(new SerialPort("/dev/ttyUSB0"));
 		OSSC ossc = new OSSC();
 		
-		Crosspoint crosspoint = new Crosspoint("192.168.254.254", 23);
-		IN1606 in1606 = new IN1606("192.168.254.253", 23);
+		Crosspoint crosspoint = new Crosspoint("192.168.0.21", 23);
+		IN1606 in1606 = new IN1606("192.168.0.20", 23);
+		
+		crosspoint.testConnection();
+		in1606.testConnection();
 		
 		new API(vp50, ossc, crosspoint, in1606);
 	}

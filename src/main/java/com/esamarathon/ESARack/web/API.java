@@ -5,9 +5,8 @@ import static spark.Spark.*;
 import java.util.logging.Logger;
 
 import static com.esamarathon.ESARack.web.util.JsonUtil.json;
-
-import com.esamarathon.ESARack.Main;
 import com.esamarathon.ESARack.hardware.*;
+
 
 public class API {
 

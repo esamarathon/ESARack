@@ -7,7 +7,7 @@ import com.esamarathon.ESARack.web.util.JsonUtil;
 public class CrosspointModel {
 	public Integer preset;
 	public List<CrosspointTieModel> tieModel;
-	public boolean resetTies;
+	public Boolean resetTies;
 	
 	@Override
 	public String toString() {
