@@ -20,7 +20,7 @@ public enum OSSCCommand {
 	SEVEN("KEY_7"),
 	EIGHT("KEY_8"),
 	NINE("KEY_9"),
-	PRESET("KEY_10ORCOMMANDS"),
+	PRESET("KEY_10CHANNELSUP"),
 	MENU("KEY_MENU");
 	
 	private final String command;
