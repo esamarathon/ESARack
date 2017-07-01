@@ -25,7 +25,7 @@ public class TestIN1606<T> {
 
 	@Test public void TestSetInput() throws IOException, InterruptedException {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		String input = String.valueOf(1+Math.round(Math.random() * 6));
+		String input = String.valueOf(1+Math.round(Math.random() * 5));
 		IN1606 in1606 = getMockedIN1606(out, ("IN"+input+" All\r\n").getBytes());
 		in1606.setInput(input);
 		
