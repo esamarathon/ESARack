@@ -3,6 +3,8 @@ package com.esamarathon.ESARack.hardware;
 import java.io.IOException;
 import java.util.logging.Logger;
 
+import com.esamarathon.ESARack.hardware.enums.AutoImageType;
+
 /**
  * Byta inputs, croppa, justera bilden i höjd/sidled
  * @author zephyyrr
@@ -31,6 +33,11 @@ public class IN1606 extends Extron implements InputSwitch {
 		} else {
 			throw new IllegalArgumentException("Invalid input. Must be number 1-6");
 		}
+	}
+	
+	public void executeAutoMode(AutoImageType type) throws IllegalArgumentException, IOException, InterruptedException {
+		if (type == null) throw new IllegalArgumentException("type can not be null");
+		ConnectAndSendCommand(Integer.toString(type.getMode()) + "*A");
 	}
 	
 	public int getWidth() throws IOException, InterruptedException {
