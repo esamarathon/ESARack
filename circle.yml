@@ -1,3 +1,15 @@
 dependencies:
   override:
      - chmod +x gradlew
+
+compile:
+  override:
+     - ./gradlew shadowJar
+
+test:
+  override:
+     - ./gradlew test 
+
+general:
+  artifacts:
+    - "build/libs
