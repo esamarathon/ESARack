@@ -36,6 +36,10 @@ public class IN1606Handler extends AbstractHandler {
 		public Object handle(Request request, Response response) throws Exception {
 			IN1606Model model = new IN1606Model();
 			model.input = in1606.getInput();
+			model.height = in1606.getHeight();
+			model.width = in1606.getWidth();
+			model.horizontalShift = in1606.getHorizontalShift();
+			model.verticalShift = in1606.getVerticalShift();
 			return model;
 		}
 
@@ -53,6 +57,8 @@ public class IN1606Handler extends AbstractHandler {
 				logger.log(Level.INFO, "Changing to input " + model.input + ".");
 				in1606.setInput(model.input);
 			}
+			
+			if (model.executeAutoImage != null && model.executeAutoImage.booleanValue())
 			
 			if (model.width != null) {
 				logger.log(Level.INFO, "Changing to width " + model.width + ".");

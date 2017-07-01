@@ -10,6 +10,7 @@ public class IN1606Model {
 	public Integer verticalShift;
 	public Integer contrast;
 	public Integer brightness;
+	public Boolean executeAutoImage;
 	
 	@Override
 	public String toString() {
