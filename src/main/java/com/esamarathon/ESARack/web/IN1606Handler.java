@@ -4,6 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.esamarathon.ESARack.hardware.IN1606;
+import com.esamarathon.ESARack.hardware.enums.AutoImageType;
 import com.esamarathon.ESARack.web.models.IN1606Model;
 import com.google.gson.Gson;
 
@@ -58,7 +59,10 @@ public class IN1606Handler extends AbstractHandler {
 				in1606.setInput(model.input);
 			}
 			
-			if (model.executeAutoImage != null && model.executeAutoImage.booleanValue())
+			if (model.executeAutoImage != null && model.executeAutoImage.booleanValue()) {
+				logger.log(Level.INFO, "Executing auto-image.");
+				in1606.executeAutoMode(AutoImageType.Fill);
+			}
 			
 			if (model.width != null) {
 				logger.log(Level.INFO, "Changing to width " + model.width + ".");
